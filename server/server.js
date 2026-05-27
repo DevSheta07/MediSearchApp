@@ -4,9 +4,21 @@ const cors     = require('cors');
 require('dotenv').config();
 
 const app = express();
+const allowedOrigins = (process.env.CLIENT_ORIGIN || 'http://localhost:3000')
+  .split(',')
+  .map(origin => origin.trim())
+  .filter(Boolean);
 
 // ── Middleware ─────────────────────────────────
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error('Not allowed by CORS'));
+  },
+  credentials: true,
+}));
 app.use(express.json());
 
 // ── Routes ─────────────────────────────────────
