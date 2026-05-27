@@ -1,0 +1,8 @@
+# Client-specific ignores
+node_modules/
+build/
+.env
+.client.local
+.cache/
+# optional: editor temp files
+*.log
