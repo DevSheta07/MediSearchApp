@@ -8,14 +8,14 @@ import { getNearbyStores } from '../api/medicine';
 // Fix default Leaflet marker icons
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
-  iconUrl:       'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
-  shadowUrl:     'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+  iconRetinaUrl: '/images/leaflet/marker-icon-2x.png',
+  iconUrl:       '/images/leaflet/marker-icon.png',
+  shadowUrl:     '/images/leaflet/marker-shadow.png',
 });
 
 const greenIcon = new L.Icon({
-  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
-  shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+  iconUrl: '/images/leaflet/marker-icon-green.png',
+  shadowUrl: '/images/leaflet/marker-shadow.png',
   iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34],
 });
 

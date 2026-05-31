@@ -29,7 +29,7 @@ export default function Login() {
 
       {/* Left – image */}
       <div className="hidden lg:flex flex-1 relative overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=900&q=80"
+        <img src="/images/pharmacy-interior.jpg"
           alt="pharmacy" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-br from-green-900/80 to-green-600/60" />
         <div className="absolute inset-0 flex flex-col justify-end p-12 text-white">

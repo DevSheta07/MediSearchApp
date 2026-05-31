@@ -96,7 +96,7 @@ export default function Register() {
 
       {/* Right – image */}
       <div className="hidden lg:flex flex-1 relative overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=900&q=80"
+        <img src="/images/pharmacy-store.jpg"
           alt="pharmacy store" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-bl from-green-900/80 to-green-600/60" />
         <div className="absolute inset-0 flex flex-col justify-center p-12 text-white">

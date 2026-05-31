@@ -3,9 +3,9 @@ import MedicineCard from '../components/MedicineCard';
 import useMedicineSearch from '../hooks/useMedicineSearch';
 
 const HERO_IMAGES = [
-  'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&q=80',
-  'https://images.unsplash.com/photo-1550572017-edd951b55104?w=600&q=80',
-  'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&q=80',
+  '/images/pills-closeup.jpg',
+  '/images/capsules.jpg',
+  '/images/medical-tablets.jpg',
 ];
 
 const STATS = [
