@@ -6,21 +6,21 @@ export default function MedicineCard({ medicine, index }) {
 
   return (
     <div
-      className="bg-white rounded-2xl shadow-card hover:shadow-card-hover border border-green-50
+      className="bg-white rounded-soft shadow-card hover:shadow-card-hover border border-brand-100
         overflow-hidden transition-all duration-300 hover:-translate-y-1 cursor-pointer animate-fade-up group"
       style={{ animationDelay: `${index * 80}ms`, opacity: 0 }}
       onClick={() => navigate(`/medicine/${encodeURIComponent(medicine.genericName)}`)}
     >
       {/* Image */}
-      <div className="relative h-44 overflow-hidden bg-green-50">
+      <div className="relative h-44 overflow-hidden bg-brand-100">
         <img
           src={getMedicineImage(medicine.brandName)}
           alt={medicine.brandName}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           onError={e => { e.target.src = FALLBACK_IMAGE; }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-        <span className="absolute top-3 right-3 bg-green-500 text-white text-xs font-semibold
+        <div className="absolute inset-0 bg-gradient-to-t from-black/12 to-transparent" />
+        <span className="absolute top-3 right-3 bg-brand-600 text-white text-xs font-semibold
           px-3 py-1 rounded-full shadow">
           Generic Available
         </span>
@@ -48,7 +48,7 @@ export default function MedicineCard({ medicine, index }) {
 
         {/* Pricing Section */}
         {medicine.pricing && (
-          <div className="bg-green-50 rounded-lg p-3 mb-3">
+          <div className="bg-brand-50 rounded-lg p-3 mb-3">
             <div className="grid grid-cols-2 gap-2 mb-2">
               <div>
                 <p className="text-xs text-gray-600 font-semibold mb-1">Branded Price</p>
@@ -56,19 +56,19 @@ export default function MedicineCard({ medicine, index }) {
               </div>
               <div>
                 <p className="text-xs text-gray-600 font-semibold mb-1">Generic Price</p>
-                <p className="text-sm font-bold text-green-600">₹{medicine.pricing.genericPrice}</p>
+                <p className="text-sm font-bold text-brand-700">₹{medicine.pricing.genericPrice}</p>
               </div>
             </div>
             {medicine.pricing.savings > 0 && (
-              <div className="pt-2 border-t border-green-200">
+              <div className="pt-2 border-t border-brand-100">
                 <p className="text-xs text-gray-700 font-semibold mb-1">You Save</p>
-                <p className="text-sm font-bold text-green-700">
+                <p className="text-sm font-bold text-brand-700">
                   ₹{medicine.pricing.savings} ({medicine.pricing.savingsPercentage}% off)
                 </p>
               </div>
             )}
             {medicine.pricing.source && (
-              <div className="text-xs text-gray-400 text-center mt-2 pt-2 border-t border-green-100">
+              <div className="text-xs text-gray-400 text-center mt-2 pt-2 border-t border-brand-50">
                 Via {medicine.pricing.source}
               </div>
             )}

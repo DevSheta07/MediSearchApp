@@ -18,27 +18,27 @@ export default function Home() {
   const { results, loading, error, searched, search } = useMedicineSearch();
 
   return (
-    <div className="min-h-screen bg-green-50">
+    <div className="min-h-screen bg-brand-50 py-8">
 
       {/* ── Hero ─────────────────────────────────── */}
-      <section className="bg-white border-b border-green-100">
-        <div className="max-w-6xl mx-auto px-6 py-16 flex flex-col lg:flex-row items-center gap-12">
+      <section className="max-w-6xl mx-auto px-6 py-16">
+        <div className="bg-white app-shell p-12 flex flex-col lg:flex-row items-center gap-12">
 
           {/* Copy */}
           <div className="flex-1 space-y-6 animate-fade-up">
-            <span className="inline-flex items-center gap-2 bg-green-100 text-green-700
+            <span className="inline-flex items-center gap-2 bg-brand-100 text-brand-700
               text-xs font-semibold px-4 py-1.5 rounded-full uppercase tracking-wide">
-              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+              <span className="w-2 h-2 bg-brand-500 rounded-full animate-pulse" />
               Free Generic Medicine Finder
             </span>
 
-            <h1 className="font-heading text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+            <h1 className="font-heading text-4xl lg:text-5xl font-bold text-brand-800 leading-tight">
               Find Affordable<br />
-              <span className="text-green-600">Generic Medicines</span><br />
+              <span className="text-brand-600">Generic Medicines</span><br />
               Near You
             </h1>
 
-            <p className="text-gray-500 text-lg leading-relaxed max-w-md">
+            <p className="text-gray-600 text-lg leading-relaxed max-w-md">
               Search the medicine your doctor prescribed and instantly discover
               cost-effective generic alternatives available at stores nearby.
             </p>
@@ -49,7 +49,7 @@ export default function Home() {
             <div className="flex items-center gap-8 pt-2">
               {STATS.map(s => (
                 <div key={s.label}>
-                  <div className="font-heading text-xl font-bold text-green-700">{s.value}</div>
+                  <div className="font-heading text-xl font-bold text-brand-700">{s.value}</div>
                   <div className="text-xs text-gray-400 mt-0.5">{s.label}</div>
                 </div>
               ))}
@@ -59,12 +59,12 @@ export default function Home() {
           {/* Hero images */}
           <div className="flex-1 hidden lg:grid grid-cols-2 gap-4 animate-fade-up" style={{ animationDelay: '0.2s' }}>
             <img src={HERO_IMAGES[0]} alt="medicines"
-              className="rounded-2xl object-cover h-56 w-full shadow-card" />
+              className="rounded-soft object-cover h-56 w-full shadow-card" />
             <div className="space-y-4">
               <img src={HERO_IMAGES[1]} alt="capsules"
-                className="rounded-2xl object-cover h-[104px] w-full shadow-card" />
+                className="rounded-soft object-cover h-[104px] w-full shadow-card" />
               <img src={HERO_IMAGES[2]} alt="pharmacy"
-                className="rounded-2xl object-cover h-[104px] w-full shadow-card" />
+                className="rounded-soft object-cover h-[104px] w-full shadow-card" />
             </div>
           </div>
         </div>

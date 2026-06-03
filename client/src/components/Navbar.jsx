@@ -14,20 +14,20 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-white shadow-sm border-b border-green-100 sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto w-full px-6 py-5 flex items-center justify-between gap-10">
+    <nav className="bg-brand-50 sticky top-0 left-0 right-0 z-50 w-full">
+      <div className="max-w-6xl mx-auto w-full py-4 px-6 flex items-center justify-between gap-10">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-4 group">
+        <Link to="/" className="flex items-center gap-4 group pl-2">
           <picture>
             <source srcSet={logoAvif} type="image/avif" />
             <img
               src={logoPng}
               alt="MediSearch logo"
-              className="w-16 h-16 rounded-xl shadow-md object-cover ring-1 ring-green-100"
+              className="w-12 h-12 rounded-lg shadow-md object-cover ring-1 ring-brand-100 p-1 bg-white"
             />
           </picture>
-          <span className="font-heading text-3xl font-bold text-green-800 tracking-tight">
-            Medi<span className="text-green-500">Search</span>
+          <span className="font-heading text-2xl font-bold text-brand-800 tracking-tight">
+            Medi<span className="text-brand-500">Search</span>
           </span>
         </Link>
 
@@ -66,13 +66,13 @@ export default function Navbar() {
             <>
               <Link
                 to="/login"
-                className="text-lg font-medium text-gray-500 hover:text-green-600 transition-colors"
+                className="text-lg font-medium text-brand-700 hover:text-brand-900 transition-colors"
               >
                 Login
               </Link>
               <Link
                 to="/register"
-                className="bg-green-600 text-white text-lg font-medium px-5 py-2 rounded-xl hover:bg-green-700 transition-colors shadow-sm"
+                className="bg-brand-600 text-white text-lg font-medium px-5 py-2 rounded-soft hover:bg-brand-700 transition-colors shadow-sm"
               >
                 Sign Up
               </Link>

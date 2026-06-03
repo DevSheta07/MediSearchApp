@@ -26,31 +26,31 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-green-50 flex">
+    <div className="h-screen bg-brand-50 flex overflow-hidden">
 
       {/* Left – form */}
-      <div className="flex-1 flex items-center justify-center px-8 py-12">
-        <div className="w-full max-w-md animate-fade-up">
-          <div className="flex items-center gap-4 mb-10">
+      <div className="w-full lg:w-1/2 flex items-center justify-center">
+        <div className="w-full max-w-md animate-fade-up app-shell p-8 mx-6">
+          <div className="flex items-center gap-4 mb-8">
             <picture>
               <source srcSet={logoAvif} type="image/avif" />
               <img
                 src={logoPng}
                 alt="MediSearch logo"
-                className="w-20 h-20 rounded-xl shadow-md object-cover ring-1 ring-green-100"
+                className="w-16 h-16 rounded-lg shadow-md object-cover ring-1 ring-brand-100"
               />
             </picture>
-            <span className="font-heading text-3xl font-bold text-green-800 tracking-tight">
-              Medi<span className="text-green-500">Search</span>
+            <span className="font-heading text-2xl font-bold text-brand-800 tracking-tight">
+              Medi<span className="text-brand-500">Search</span>
             </span>
           </div>
 
-          <h1 className="font-heading text-3xl font-bold text-gray-900 mb-2">Create account</h1>
-          <p className="text-gray-500 mb-8">Start finding generic medicines for free</p>
+          <h1 className="font-heading text-3xl font-bold text-brand-800 mb-2">Create account</h1>
+          <p className="text-gray-600 mb-6">Start finding generic medicines for free</p>
 
           {error && (
             <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-100
-              rounded-xl text-red-600 text-sm mb-6">
+              rounded-soft text-red-600 text-sm mb-6">
               <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                   d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -70,15 +70,15 @@ export default function Register() {
                 <label className="block text-base font-medium text-gray-700 mb-1.5">{f.label}</label>
                 <input type={f.type} name={f.name} value={form[f.name]}
                   onChange={handleChange} required placeholder={f.ph}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white
-                    text-gray-800 placeholder-gray-400 focus:outline-none focus:border-green-400
-                    focus:ring-4 focus:ring-green-100 transition-all text-base" />
+                  className="w-full px-4 py-3 rounded-soft border-2 border-brand-50 bg-white
+                    text-gray-800 placeholder-gray-400 focus:outline-none focus:border-brand-400
+                    focus:ring-4 focus:ring-brand-100 transition-all text-base" />
               </div>
             ))}
 
             <button type="submit" disabled={loading}
-              className="w-full bg-green-600 hover:bg-green-700 disabled:bg-green-300 text-white
-                font-semibold py-3.5 rounded-xl transition-colors shadow-sm flex items-center
+              className="w-full bg-brand-600 hover:bg-brand-700 disabled:bg-brand-300 text-white
+                font-semibold py-3.5 rounded-soft transition-colors shadow-sm flex items-center
                 justify-center gap-2 text-base">
               {loading ? (<><svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
@@ -89,16 +89,18 @@ export default function Register() {
 
           <p className="text-center text-sm text-gray-500 mt-8">
             Already have an account?{' '}
-            <Link to="/login" className="text-green-600 font-semibold hover:underline">Sign in</Link>
+            <Link to="/login" className="text-brand-700 font-semibold hover:underline">Sign in</Link>
           </p>
         </div>
       </div>
 
       {/* Right – image */}
-      <div className="hidden lg:flex flex-1 relative overflow-hidden">
-        <img src="/images/pharmacy-store.jpg"
-          alt="pharmacy store" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-bl from-green-900/80 to-green-600/60" />
+      <div className="hidden lg:block w-1/2 relative">
+        <div
+          className="absolute inset-0 bg-cover bg-center rounded-soft"
+          style={{ backgroundImage: "url('/images/pharmacy-store.jpg')" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-bl from-brand-800/80 to-brand-600/40 rounded-soft" />
         <div className="absolute inset-0 flex flex-col justify-center p-12 text-white">
           <div className="space-y-6 max-w-sm">
             {[
@@ -111,7 +113,7 @@ export default function Register() {
                   justify-center text-xl shrink-0">{item.icon}</div>
                 <div>
                   <p className="font-semibold">{item.title}</p>
-                  <p className="text-green-100 text-sm mt-0.5 leading-relaxed">{item.desc}</p>
+                  <p className="text-brand-100 text-sm mt-0.5 leading-relaxed">{item.desc}</p>
                 </div>
               </div>
             ))}

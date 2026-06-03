@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import logoAvif from '../assets/logo.avif';
@@ -10,6 +10,12 @@ export default function Login() {
   const [form, setForm]       = useState({ email: '', password: '' });
   const [error, setError]     = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = prev; };
+  }, []);
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -25,45 +31,34 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-green-50 flex">
+    <div
+      className="h-screen bg-brand-50 flex overflow-hidden relative pt-20"
+      style={{ backgroundImage: "url('/images/pharmacy-interior.jpg')", backgroundSize: 'cover', backgroundPosition: 'center' }}
+    >
+      <div className="absolute inset-0 bg-gradient-to-br from-brand-800/60 to-brand-600/20 rounded-none" />
 
-      {/* Left – image */}
-      <div className="hidden lg:flex flex-1 relative overflow-hidden">
-        <img src="/images/pharmacy-interior.jpg"
-          alt="pharmacy" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-br from-green-900/80 to-green-600/60" />
-        <div className="absolute inset-0 flex flex-col justify-end p-12 text-white">
-          <h2 className="font-heading text-4xl font-bold mb-4">Your Health,<br />Our Priority</h2>
-          <p className="text-green-100 text-lg leading-relaxed max-w-sm">
-            Find affordable generic medicines and save up to 80% on your prescriptions.
-          </p>
-          <div className="flex gap-4 mt-8 flex-wrap">
-            {['10K+ Medicines', '200+ Stores', 'Free to Use'].map(t => (
-              <div key={t} className="bg-white/15 backdrop-blur rounded-xl px-4 py-2 text-sm font-medium">{t}</div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Right – form */}
-      <div className="flex-1 flex items-center justify-center px-8 py-12">
-        <div className="w-full max-w-md animate-fade-up">
+      {/* Centered form */}
+      <div className="w-full flex items-center justify-center">
+        <div
+          className="w-full max-w-md animate-fade-up app-shell p-6 sm:p-8 mx-4 sm:mx-6 bg-white rounded-soft shadow-md"
+          style={{ maxHeight: 'calc(100vh - 6rem)', overflow: 'auto' }}
+        >
           <div className="flex items-center gap-4 mb-10">
             <picture>
               <source srcSet={logoAvif} type="image/avif" />
               <img
                 src={logoPng}
                 alt="MediSearch logo"
-                className="w-20 h-20 rounded-xl shadow-md object-cover ring-1 ring-green-100"
+                className="w-16 h-16 rounded-lg shadow-md object-cover ring-1 ring-brand-100"
               />
             </picture>
-            <span className="font-heading text-3xl font-bold text-green-800 tracking-tight">
-              Medi<span className="text-green-500">Search</span>
+            <span className="font-heading text-2xl font-bold text-brand-800 tracking-tight">
+              Medi<span className="text-brand-500">Search</span>
             </span>
           </div>
 
-          <h1 className="font-heading text-3xl font-bold text-gray-900 mb-2">Welcome back</h1>
-          <p className="text-gray-500 mb-8">Sign in to continue searching medicines</p>
+          <h1 className="font-heading text-3xl font-bold text-brand-800 mb-2">Welcome back</h1>
+          <p className="text-gray-600 mb-8">Sign in to continue searching medicines</p>
 
           {error && (
             <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-100
@@ -85,15 +80,15 @@ export default function Login() {
                 <label className="block text-base font-medium text-gray-700 mb-1.5">{f.label}</label>
                 <input type={f.type} name={f.name} value={form[f.name]}
                   onChange={handleChange} required placeholder={f.ph}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-white
-                    text-gray-800 placeholder-gray-400 focus:outline-none focus:border-green-400
-                    focus:ring-4 focus:ring-green-100 transition-all text-base" />
+                  className="w-full px-4 py-3 rounded-soft border-2 border-brand-50 bg-white
+                    text-gray-800 placeholder-gray-400 focus:outline-none focus:border-brand-400
+                    focus:ring-4 focus:ring-brand-100 transition-all text-base" />
               </div>
             ))}
 
             <button type="submit" disabled={loading}
-              className="w-full bg-green-600 hover:bg-green-700 disabled:bg-green-300 text-white
-                font-semibold py-3.5 rounded-xl transition-colors shadow-sm flex items-center
+              className="w-full bg-brand-600 hover:bg-brand-700 disabled:bg-brand-300 text-white
+                font-semibold py-3.5 rounded-soft transition-colors shadow-sm flex items-center
                 justify-center gap-2 text-base">
               {loading ? (<><svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
@@ -104,7 +99,7 @@ export default function Login() {
 
           <p className="text-center text-sm text-gray-500 mt-8">
             Don't have an account?{' '}
-            <Link to="/register" className="text-green-600 font-semibold hover:underline">Create one free</Link>
+            <Link to="/register" className="text-brand-700 font-semibold hover:underline">Create one free</Link>
           </p>
         </div>
       </div>
