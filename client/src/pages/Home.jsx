@@ -9,9 +9,9 @@ const HERO_IMAGES = [
 ];
 
 const STATS = [
-  { label: 'Medicines Listed',    value: '10,000+' },
-  { label: 'Generic Alternatives', value: '5,000+' },
-  { label: 'Partner Stores',      value: '200+' },
+  { label: 'Medicines Listed',     value: '39+' },
+  { label: 'Generic Alternatives', value: '100+' },
+  { label: 'Average Savings',      value: '70%' },
 ];
 
 export default function Home() {

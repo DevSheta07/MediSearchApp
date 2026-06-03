@@ -24,7 +24,6 @@ app.use(express.json());
 // ── Routes ─────────────────────────────────────
 app.use('/api/auth',     require('./routes/auth'));
 app.use('/api/medicine', require('./routes/medicine'));
-app.use('/api/stores',   require('./routes/stores'));
 
 // ── Health check ───────────────────────────────
 app.get('/', (req, res) => res.json({ status: 'MediSearch API running ✅' }));

@@ -2,12 +2,10 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { searchMedicines } from '../api/medicine';
 import { getMedicineImage, FALLBACK_IMAGE } from '../utils/helpers';
-import StoreMap from '../components/StoreMap';
 
 const TABS = [
   { key: 'overview',      label: 'Overview' },
   { key: 'alternatives',  label: 'Generic Options' },
-  { key: 'stores',        label: 'Nearby Stores' },
 ];
 
 export default function MedicineDetail() {
@@ -94,7 +92,6 @@ export default function MedicineDetail() {
                 { label: 'Brand Name',   value: primary.brandName },
                 { label: 'Generic Name', value: primary.genericName },
                 { label: 'Manufacturer', value: primary.manufacturer },
-                { label: 'Purpose',      value: primary.purpose },
               ].map(item => (
                 <div key={item.label} className="bg-green-50 rounded-xl p-4">
                   <p className="text-xs text-green-600 font-semibold uppercase tracking-wide mb-1">{item.label}</p>
@@ -104,16 +101,38 @@ export default function MedicineDetail() {
                 </div>
               ))}
             </div>
-            {/* Savings banner */}
-            <div className="flex items-center gap-4 bg-gradient-to-r from-green-500 to-green-600 rounded-2xl p-5 text-white">
-              <div className="text-3xl">💰</div>
-              <div>
-                <p className="font-heading text-lg font-bold">Save up to 80% with generics</p>
-                <p className="text-green-100 text-sm mt-0.5">
-                  Generic medicines contain the same active ingredient and are equally effective.
-                </p>
+
+            {/* Pricing Section */}
+            {primary.pricing && (
+              <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-2xl p-6 border border-green-100">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="font-heading text-lg font-bold text-gray-800">💰 Price Comparison</h3>
+                  {primary.pricing.source && (
+                    <span className="text-xs bg-blue-100 text-blue-700 px-2.5 py-1 rounded-full font-medium">
+                      Via {primary.pricing.source}
+                    </span>
+                  )}
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="bg-white rounded-lg p-4">
+                    <p className="text-xs text-gray-500 font-semibold uppercase tracking-wide mb-2">Branded Medicine</p>
+                    <p className="text-3xl font-bold text-gray-800">₹{primary.pricing.brandedPrice}</p>
+                  </div>
+                  <div className="bg-green-500 text-white rounded-lg p-4">
+                    <p className="text-xs font-semibold uppercase tracking-wide mb-2">Generic Option</p>
+                    <p className="text-3xl font-bold">₹{primary.pricing.genericPrice}</p>
+                  </div>
+                  {primary.pricing.savings > 0 && (
+                    <div className="bg-gradient-to-br from-green-400 to-emerald-500 text-white rounded-lg p-4">
+                      <p className="text-xs font-semibold uppercase tracking-wide mb-2">You Save</p>
+                      <p className="text-3xl font-bold">₹{primary.pricing.savings}</p>
+                      <p className="text-sm mt-1 font-medium">({primary.pricing.savingsPercentage}% off)</p>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
+
           </div>
         )}
 
@@ -129,11 +148,19 @@ export default function MedicineDetail() {
                   {generics.map((med, i) => (
                     <div key={i} className="flex items-center justify-between p-4 bg-green-50
                       rounded-xl border border-green-100 hover:border-green-300 transition-colors">
-                      <div>
+                      <div className="flex-1">
                         <p className="font-semibold text-gray-800">{med.genericName}</p>
                         <p className="text-sm text-gray-500 mt-0.5">
                           By {med.manufacturer !== 'N/A' ? med.manufacturer : 'Various'}
                         </p>
+                        {med.pricing && (
+                          <div className="flex items-center gap-4 mt-2">
+                            <span className="text-sm text-gray-600">
+                              <span className="font-medium text-gray-800">₹{med.pricing.genericPrice}</span>
+                              <span className="text-gray-400 ml-1">Generic</span>
+                            </span>
+                          </div>
+                        )}
                       </div>
                       <span className="bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">
                         Generic
@@ -170,6 +197,22 @@ export default function MedicineDetail() {
                         <td className="py-3 text-center text-green-700 font-medium">{generic}</td>
                       </tr>
                     ))}
+                    {primary.pricing && (
+                      <>
+                        <tr className="bg-green-50">
+                          <td className="py-3 text-gray-600 font-medium">Price (Sample)</td>
+                          <td className="py-3 text-center text-gray-800 font-bold">₹{primary.pricing.brandedPrice}</td>
+                          <td className="py-3 text-center text-green-600 font-bold">₹{primary.pricing.genericPrice}</td>
+                        </tr>
+                        {primary.pricing.savings > 0 && (
+                          <tr>
+                            <td className="py-3 text-gray-600 font-medium">Savings</td>
+                            <td className="py-3 text-center text-gray-400">—</td>
+                            <td className="py-3 text-center text-green-700 font-bold">₹{primary.pricing.savings} ({primary.pricing.savingsPercentage}%)</td>
+                          </tr>
+                        )}
+                      </>
+                    )}
                   </tbody>
                 </table>
               </div>
@@ -177,12 +220,6 @@ export default function MedicineDetail() {
           </div>
         )}
 
-        {/* ── Tab: Stores ── */}
-        {activeTab === 'stores' && (
-          <div className="bg-white rounded-2xl shadow-card p-6 animate-fade-up">
-            <StoreMap />
-          </div>
-        )}
       </div>
     </div>
   );

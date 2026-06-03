@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { getMedicineImage, FALLBACK_IMAGE, truncate } from '../utils/helpers';
+import { getMedicineImage, FALLBACK_IMAGE } from '../utils/helpers';
 
 export default function MedicineCard({ medicine, index }) {
   const navigate = useNavigate();
@@ -38,15 +38,46 @@ export default function MedicineCard({ medicine, index }) {
           </span>
         </div>
 
-        {medicine.purpose && medicine.purpose !== 'N/A' && (
-          <p className="text-sm text-gray-500 line-clamp-2 leading-relaxed mb-4">
-            {truncate(medicine.purpose, 90)}
-          </p>
+        {/* Manufacturer */}
+        {medicine.manufacturer && medicine.manufacturer !== 'N/A' && (
+          <div className="mb-3 pb-3 border-b border-gray-100">
+            <p className="text-xs text-gray-500 font-semibold mb-1">MANUFACTURER</p>
+            <p className="text-sm text-gray-700 font-medium">{medicine.manufacturer}</p>
+          </div>
         )}
 
-        <div className="flex items-center justify-between pt-3 border-t border-green-50">
-          <span className="text-xs text-gray-400 truncate max-w-[60%]">
-            {medicine.manufacturer !== 'N/A' ? `By ${medicine.manufacturer}` : ''}
+        {/* Pricing Section */}
+        {medicine.pricing && (
+          <div className="bg-green-50 rounded-lg p-3 mb-3">
+            <div className="grid grid-cols-2 gap-2 mb-2">
+              <div>
+                <p className="text-xs text-gray-600 font-semibold mb-1">Branded Price</p>
+                <p className="text-sm font-bold text-gray-800">₹{medicine.pricing.brandedPrice}</p>
+              </div>
+              <div>
+                <p className="text-xs text-gray-600 font-semibold mb-1">Generic Price</p>
+                <p className="text-sm font-bold text-green-600">₹{medicine.pricing.genericPrice}</p>
+              </div>
+            </div>
+            {medicine.pricing.savings > 0 && (
+              <div className="pt-2 border-t border-green-200">
+                <p className="text-xs text-gray-700 font-semibold mb-1">You Save</p>
+                <p className="text-sm font-bold text-green-700">
+                  ₹{medicine.pricing.savings} ({medicine.pricing.savingsPercentage}% off)
+                </p>
+              </div>
+            )}
+            {medicine.pricing.source && (
+              <div className="text-xs text-gray-400 text-center mt-2 pt-2 border-t border-green-100">
+                Via {medicine.pricing.source}
+              </div>
+            )}
+          </div>
+        )}
+
+        <div className="flex items-center justify-between pt-2 border-t border-green-50">
+          <span className="text-xs text-gray-400">
+            {medicine.dosageForm && medicine.dosageForm !== 'N/A' ? medicine.dosageForm : ''}
           </span>
           <span className="text-green-600 text-sm font-medium flex items-center gap-1
             group-hover:gap-2 transition-all">

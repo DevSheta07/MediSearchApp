@@ -16,7 +16,3 @@ export const getMedicineImage = (name = '') => {
 };
 
 export const FALLBACK_IMAGE = '/images/pills-closeup.jpg';
-
-// Truncate long text
-export const truncate = (str = '', maxLen = 80) =>
-  str.length > maxLen ? str.slice(0, maxLen) + '…' : str;

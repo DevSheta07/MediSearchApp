@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const axios  = require('axios');
+const Medicine = require('../models/Medicine');
 
-// ── SEARCH medicines ───────────────────────────
+// ── SEARCH medicines from MongoDB ────────────────
 router.get('/search', async (req, res) => {
   try {
     const { query } = req.query;
@@ -12,35 +12,91 @@ router.get('/search', async (req, res) => {
 
     console.log('🔍 Searching medicine:', query);
 
-    const encoded = encodeURIComponent(query.trim());
+    const searchRegex = new RegExp(query.trim(), 'i');
 
-    // Search Open FDA drug label API
-    const url = `https://api.fda.gov/drug/label.json?search=openfda.brand_name:"${encoded}"+openfda.generic_name:"${encoded}"&limit=12`;
+    // Search in MongoDB for matching medicines
+    const results = await Medicine.find({
+      $or: [
+        { brandName: searchRegex },
+        { genericName: searchRegex },
+        { searchTerms: searchRegex },
+        { category: searchRegex },
+      ]
+    })
+      .limit(12)
+      .select('brandName genericName manufacturer dosageForm strength route pricing category inStock');
 
-    const response = await axios.get(url, { timeout: 8000 });
+    if (results.length === 0) {
+      console.log(`❌ No medicines found for "${query}"`);
+      return res.json([]);
+    }
 
-    const results = response.data.results.map((drug) => ({
-      brandName:    drug.openfda?.brand_name?.[0]        || 'N/A',
-      genericName:  drug.openfda?.generic_name?.[0]      || 'N/A',
-      manufacturer: drug.openfda?.manufacturer_name?.[0] || 'N/A',
-      purpose:      drug.purpose?.[0]                    || drug.indications_and_usage?.[0] || 'N/A',
-      dosageForm:   drug.openfda?.dosage_form?.[0]       || 'N/A',
-      route:        drug.openfda?.route?.[0]             || 'N/A',
+    // Format response
+    const formattedResults = results.map(medicine => ({
+      brandName: medicine.brandName,
+      genericName: medicine.genericName,
+      manufacturer: medicine.manufacturer,
+      dosageForm: medicine.dosageForm,
+      strength: medicine.strength,
+      route: medicine.route,
+      category: medicine.category,
+      inStock: medicine.inStock,
+      pricing: {
+        brandedPrice: medicine.pricing.branded,
+        genericPrice: medicine.pricing.generic,
+        savings: medicine.pricing.savings,
+        savingsPercentage: medicine.pricing.savingsPercentage,
+        source: 'Custom Database'
+      }
     }));
 
-    console.log(`✅ Found ${results.length} medicines for "${query}"`);
-    res.json(results);
+    console.log(`✅ Found ${formattedResults.length} medicines for "${query}"`);
+    res.json(formattedResults);
 
   } catch (err) {
     console.error('❌ Medicine search error:', err.message);
-
-    // Open FDA returns 404 when no results found
-    if (err.response?.status === 404) {
-      return res.json([]); // return empty array, not an error
-    }
-
     res.status(500).json({ message: 'Failed to fetch medicine data. Try again.' });
   }
 });
 
-module.exports = router;
+// ── GET medicine by brand name ───────────────────
+// router.get('/brand/:brandName', async (req, res) => {
+//   try {
+//     const { brandName } = req.params;
+
+//     const medicine = await Medicine.findOne({ brandName: new RegExp(brandName, 'i') });
+
+//     if (!medicine) {
+//       return res.status(404).json({ message: 'Medicine not found.' });
+//     }
+
+//     res.json(medicine);
+
+//   } catch (err) {
+//     console.error('❌ Error fetching medicine:', err.message);
+//     res.status(500).json({ message: 'Failed to fetch medicine.' });
+//   }
+// });
+
+// // ── GET all generic alternatives for a medicine ──
+// router.get('/alternatives/:genericName', async (req, res) => {
+//   try {
+//     const { genericName } = req.params;
+
+//     const alternatives = await Medicine.find({
+//       genericName: new RegExp(genericName, 'i')
+//     }).limit(10);
+
+//     if (alternatives.length === 0) {
+//       return res.json([]);
+//     }
+
+//     res.json(alternatives);
+
+//   } catch (err) {
+//     console.error('❌ Error fetching alternatives:', err.message);
+//     res.status(500).json({ message: 'Failed to fetch alternatives.' });
+//   }
+// });
+
+// module.exports = router;
