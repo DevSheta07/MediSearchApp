@@ -12,7 +12,6 @@ import { useLocation } from 'react-router-dom';
 
 const PrivateRoute = ({ children }) => {
   const { user } = useAuth();
-  const location = useLocation();
   return user ? children : <Navigate to="/login" />;
 };
 
