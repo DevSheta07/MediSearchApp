@@ -117,8 +117,9 @@ router.post('/forgot-password', async (req, res) => {
     user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
     await user.save();
 
-    // Log the link in the terminal for testing/local database usage
-    console.log(`\n🔑 [AushadhSetu Recovery URL]: http://localhost:3000/reset-password/${token}\n`);
+    // Dynamically grab the request's origin (e.g. https://aushadhsetu.onrender.com) so links open correctly in production
+    const origin = (req.get('origin') || req.get('referer') || 'http://localhost:3000').replace(/\/$/, "");
+    console.log(`\n🔑 [AushadhSetu Recovery URL]: ${origin}/reset-password/${token}\n`);
 
     res.json({ message: 'Password reset link generated. Check server logs.' });
   } catch (err) {
