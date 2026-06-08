@@ -93,18 +93,3 @@ To run both the server and frontend concurrently on your machine:
        ```
 
 ---
-
-## 🚢 Production Deployment
-
-The project is pre-configured for single-service deployments on platforms like **Render**, **Railway**, or **Heroku**:
-
-*   **Build Command**: 
-    ```bash
-    npm run install-all && npm run build
-    ```
-*   **Start Command**: 
-    ```bash
-    npm start
-    ```
-
-*(When `NODE_ENV=production`, the Express server will automatically serve the static React client build from the `client/build` folder, requiring only one hosted container/service).*
