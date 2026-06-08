@@ -10,7 +10,7 @@ router.get('/search', async (req, res) => {
       return res.status(400).json({ message: 'Search query is required.' });
     }
 
-    console.log('🔍 Searching medicine on openFDA:', query);
+    // console.log('🔍 Searching medicine on openFDA:', query);
 
     // Clean query and split into tokens for search query construction
     const cleanQuery = query.trim().replace(/[^\w\s]/g, '').trim();
@@ -35,7 +35,7 @@ router.get('/search', async (req, res) => {
     } catch (apiErr) {
       // openFDA API returns 404 when no results are found
       if (apiErr.response && apiErr.response.status === 404) {
-        console.log(`❌ No medicines found on openFDA for "${query}"`);
+        // console.log(`❌ No medicines found on openFDA for "${query}"`);
         return res.json([]);
       }
       throw apiErr;
@@ -90,7 +90,7 @@ router.get('/search', async (req, res) => {
       .filter(Boolean)
       .slice(0, 12); // Limit to top 12 valid entries
 
-    console.log(`✅ Found ${formattedResults.length} medicines for "${query}"`);
+    // console.log(`✅ Found ${formattedResults.length} medicines for "${query}"`);
     res.json(formattedResults);
 
   } catch (err) {

@@ -6,7 +6,7 @@ const User = require('../models/User');
 // ── REGISTER ──
 router.post('/register', async (req, res) => {
   try {
-    console.log('📩 Register request received:', req.body);
+    // console.log('📩 Register request received:', req.body);
 
     const { name, email, password } = req.body;
 
@@ -21,7 +21,7 @@ router.post('/register', async (req, res) => {
     // Check if email already exists
     const existing = await User.findOne({ email: email.toLowerCase() });
     if (existing) {
-      console.log('⚠️  Email already registered:', email);
+      // console.log('⚠️  Email already registered:', email);
       return res.status(409).json({ message: 'Email is already registered. Please login instead.' });
     }
 
@@ -30,7 +30,7 @@ router.post('/register', async (req, res) => {
 
     // Create user
     const user = await User.create({ name, email: email.toLowerCase(), password: hashed });
-    console.log('✅ User registered successfully:', user.email);
+    // console.log('✅ User registered successfully:', user.email);
 
     res.status(201).json({ message: 'Account created successfully! Please login.' });
 
@@ -47,7 +47,7 @@ router.post('/register', async (req, res) => {
 // ── LOGIN ──────────────────────────────────────
 router.post('/login', async (req, res) => {
   try {
-    console.log('📩 Login request received:', req.body?.email);
+    // console.log('📩 Login request received:', req.body?.email);
 
     const { email, password } = req.body;
 
@@ -58,14 +58,14 @@ router.post('/login', async (req, res) => {
     // Find user
     const user = await User.findOne({ email: email.toLowerCase() });
     if (!user) {
-      console.log('⚠️  User not found:', email);
+      // console.log('⚠️  User not found:', email);
       return res.status(401).json({ message: 'Invalid email or password.' });
     }
 
     // Compare password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      console.log('⚠️  Wrong password for:', email);
+      // console.log('⚠️  Wrong password for:', email);
       return res.status(401).json({ message: 'Invalid email or password.' });
     }
 
@@ -76,7 +76,7 @@ router.post('/login', async (req, res) => {
       { expiresIn: '7d' }
     );
 
-    console.log('✅ User logged in:', user.email);
+    // console.log('✅ User logged in:', user.email);
 
     res.json({
       token,
