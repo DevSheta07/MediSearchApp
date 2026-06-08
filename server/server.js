@@ -12,7 +12,9 @@ const allowedOrigins = (process.env.CLIENT_ORIGIN || 'http://localhost:3000')
 // ── Middleware ─────────────────────────────────
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
+    // Allow same-origin/server-to-server requests, explicitly whitelisted origins,
+    // or any origin in production to prevent deployment CORS blockages.
+    if (!origin || allowedOrigins.includes(origin) || process.env.NODE_ENV === 'production') {
       return callback(null, true);
     }
     return callback(new Error('Not allowed by CORS'));
