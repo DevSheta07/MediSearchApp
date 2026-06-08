@@ -50,7 +50,7 @@ mongoose
   })
   .catch((err) => {
     console.error('❌ MongoDB connection FAILED:', err.message);
-    console.error('👉 Make sure MongoDB is running: run "mongod" in a separate terminal');
-    console.error('👉 Or use MongoDB Atlas and set MONGO_URI in .env');
+    // console.error('👉 Make sure MongoDB is running: run "mongod" in a separate terminal');
+    // console.error('👉 Or use MongoDB Atlas and set MONGO_URI in .env');
     process.exit(1);
   });
