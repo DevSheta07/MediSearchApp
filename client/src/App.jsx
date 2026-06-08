@@ -6,6 +6,8 @@ import Home from './pages/Home';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import MedicineDetail from './pages/MedicineDetail';
 import DisclaimerModal from './components/DisclaimerModal';
 import { useLocation } from 'react-router-dom';
@@ -18,7 +20,7 @@ const PrivateRoute = ({ children }) => {
 function AppRoutes() {
   const { user } = useAuth();
   const location = useLocation();
-  const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
+  const isAuthPage = ['/login', '/register', '/forgot-password'].includes(location.pathname) || location.pathname.startsWith('/reset-password');
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -30,6 +32,8 @@ function AppRoutes() {
           <Route path="/medicine/:genericName" element={<PrivateRoute><MedicineDetail /></PrivateRoute>} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
         </Routes>
       </main>
       {!isAuthPage && <Footer />}

@@ -59,15 +59,18 @@ export default function Login() {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {[
-            { label: 'Email Address', name: 'email', type: 'email', ph: 'Enter your email' },
-            { label: 'Password', name: 'password', type: 'password', ph: '••••••••' },
-          ].map(f => (
-            <div key={f.name}>
-              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">{f.label}</label>
-              <input type={f.type} name={f.name} value={form[f.name]} onChange={handleChange} required placeholder={f.ph} className="input-field" />
+          <div>
+            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Email Address</label>
+            <input type="email" name="email" value={form.email} onChange={handleChange} required placeholder="Enter your email" className="input-field" />
+          </div>
+
+          <div>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Password</label>
+              <Link to="/forgot-password" className="text-xs font-semibold text-brand-500 hover:underline">Forgot password?</Link>
             </div>
-          ))}
+            <input type="password" name="password" value={form.password} onChange={handleChange} required placeholder="••••••••" className="input-field" />
+          </div>
 
           <button type="submit" disabled={loading} className="btn-primary w-full !mt-6">
             {loading ? (

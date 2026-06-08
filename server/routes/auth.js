@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 const User = require('../models/User');
 
 // ── REGISTER ──
@@ -96,6 +97,64 @@ router.get('/me', require('../middleware/authMiddleware'), async (req, res) => {
     res.json(user);
   } catch (err) {
     res.status(500).json({ message: 'Server error.' });
+  }
+});
+
+// ── FORGOT PASSWORD ────────────────────────────
+router.post('/forgot-password', async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) {
+      return res.status(400).json({ message: 'Email is required.' });
+    }
+    const user = await User.findOne({ email: email.toLowerCase() });
+    if (!user) {
+      return res.status(404).json({ message: 'No account with that email exists.' });
+    }
+
+    const token = crypto.randomBytes(20).toString('hex');
+    user.resetPasswordToken = token;
+    user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+    await user.save();
+
+    // Log the link in the terminal for testing/local database usage
+    console.log(`\n🔑 [AushadhSetu Recovery URL]: http://localhost:3000/reset-password/${token}\n`);
+
+    res.json({ message: 'Password reset link generated. Check server logs.' });
+  } catch (err) {
+    console.error('❌ Forgot Password error:', err.message);
+    res.status(500).json({ message: 'Server error. Please try again.' });
+  }
+});
+
+// ── RESET PASSWORD ─────────────────────────────
+router.post('/reset-password/:token', async (req, res) => {
+  try {
+    const { token } = req.params;
+    const { password } = req.body;
+
+    if (!password || password.length < 6) {
+      return res.status(400).json({ message: 'Password must be at least 6 characters.' });
+    }
+
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() }
+    });
+
+    if (!user) {
+      return res.status(400).json({ message: 'Password reset token is invalid or has expired.' });
+    }
+
+    user.password = await bcrypt.hash(password, 10);
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+    await user.save();
+
+    res.json({ message: 'Password updated successfully! Please login.' });
+  } catch (err) {
+    console.error('❌ Reset Password error:', err.message);
+    res.status(500).json({ message: 'Server error. Please try again.' });
   }
 });
 
