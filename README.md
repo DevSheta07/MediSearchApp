@@ -1,4 +1,4 @@
-# AushadhSetu 🩺💊
+# AushadhSetu 🩺
 
 **AushadhSetu** is a modern, high-legibility fullstack web application designed to bridge the gap between expensive branded prescriptions and affordable healthcare. Users can search for prescription or branded medicines and instantly discover their identical, FDA-approved bio-equivalent generic alternatives, unlocking up to 80% savings.
 
