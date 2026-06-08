@@ -19,11 +19,10 @@ The platform integrates directly with the live **openFDA API** to retrieve authe
 
 ## 🛠️ Technology Stack
 
-*   **Frontend**: React (React Router v6, Axios)
+*   **Frontend**: ReactJs
 *   **Backend**: Node.js & Express.js
 *   **Database**: MongoDB (via Mongoose ODM)
 *   **Styling**: Tailwind CSS & Vanilla CSS
-*   **Typography**: Plus Jakarta Sans (Google Fonts)
 *   **Data Source**: Official U.S. FDA Drug Labeling Database (openFDA API)
 
 ---
@@ -66,18 +65,3 @@ To run both the server and frontend concurrently on your machine:
        ```
 
 ---
-
-## 🚢 Production Deployment
-
-The project is structured as a mono-service for seamless hosting on platforms like **Render**, **Railway**, or **Heroku**:
-
-1. **Build Command**: 
-   ```bash
-   npm run install-all && npm run build
-   ```
-2. **Start Command**: 
-   ```bash
-   npm start
-   ```
-
-*(In production, the Express backend serves the optimized client build located in `client/build` statically on the same port, requiring only one host service).*
