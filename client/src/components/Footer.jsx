@@ -16,7 +16,7 @@ export default function Footer() {
           </div>
         </div>
         <p className="text-xs text-gray-400 font-medium">
-          © {new Date().getFullYear()} AushadhSetu · Crafted with ❤️ by <a href="https://github.com/DevSheta07" target="_blank" rel="noopener noreferrer" className="text-brand-600 hover:underline font-semibold">Dev Sheta</a>
+          © {new Date().getFullYear()} AushadhSetu · Crafted by <a href="https://github.com/DevSheta07" target="_blank" rel="noopener noreferrer" className="text-brand-600 hover:underline font-semibold">Dev Sheta</a>
         </p>
       </div>
     </footer>
