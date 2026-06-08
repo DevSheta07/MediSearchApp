@@ -40,10 +40,10 @@ export default function Register() {
         <div className="flex items-center justify-center gap-2.5 mb-6">
           <picture className="w-10 h-10 rounded-lg overflow-hidden border border-gray-100">
             <source srcSet={logoAvif} type="image/avif" />
-            <img src={logoPng} alt="MediSearch" className="w-full h-full object-cover" />
+            <img src={logoPng} alt="AushadhSetu" className="w-full h-full object-cover" />
           </picture>
           <span className="font-heading text-xl text-gray-900">
-            Medi<span className="text-brand-500">Search</span>
+            Aushadh<span className="text-brand-500">Setu</span>
           </span>
         </div>
 

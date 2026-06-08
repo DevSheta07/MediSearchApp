@@ -35,12 +35,12 @@ if (process.env.NODE_ENV === 'production') {
   });
 } else {
   // ── Health check ───────────────────────────────
-  app.get('/', (req, res) => res.json({ status: 'MediSearch API running ✅' }));
+  app.get('/', (req, res) => res.json({ status: 'AushadhSetu API running ✅' }));
 }
 
 // ── MongoDB connect + start server ─────────────
 const PORT     = process.env.PORT || 5000;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/medisearch';
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/aushadhsetu';
 
 mongoose
   .connect(MONGO_URI)

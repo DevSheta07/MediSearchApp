@@ -15,7 +15,7 @@ export default function Footer() {
             </p>
           </div>
         </div>
-        <p className="text-xs text-gray-400 font-medium">© {new Date().getFullYear()} MediSearch · </p>
+        <p className="text-xs text-gray-400 font-medium">© {new Date().getFullYear()} AushadhSetu · </p>
       </div>
     </footer>
   );

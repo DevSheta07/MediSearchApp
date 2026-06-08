@@ -1,7 +1,7 @@
 {
-  "name": "medisearch-root",
+  "name": "aushadhsetu-root",
   "version": "1.0.0",
-  "description": "MediSearch Root Workspace Configuration for easy deployment",
+  "description": "AushadhSetu Root Workspace Configuration for easy deployment",
   "main": "server/server.js",
   "scripts": {
     "install-client": "npm install --prefix client",

@@ -20,10 +20,10 @@ export default function Navbar() {
         <Link to="/" className="flex items-center gap-2.5 shrink-0">
           <picture className="w-9 h-9 rounded-lg overflow-hidden border border-gray-100">
             <source srcSet={logoAvif} type="image/avif" />
-            <img src={logoPng} alt="MediSearch" className="w-full h-full object-cover" />
+            <img src={logoPng} alt="AushadhSetu" className="w-full h-full object-cover" />
           </picture>
           <span className="font-heading text-xl text-gray-900">
-            Medi<span className="text-brand-500">Search</span>
+            Aushadh<span className="text-brand-500">Setu</span>
           </span>
         </Link>
 

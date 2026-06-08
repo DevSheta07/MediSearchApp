@@ -1,7 +1,7 @@
 {
-  "name": "medisearch-server",
+  "name": "aushadhsetu-server",
   "version": "1.0.0",
-  "description": "MediSearch backend API",
+  "description": "AushadhSetu backend API",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

@@ -8,16 +8,16 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const stored = localStorage.getItem('medisearch_user');
-    const token  = localStorage.getItem('medisearch_token');
+    const stored = localStorage.getItem('aushadhsetu_user');
+    const token  = localStorage.getItem('aushadhsetu_token');
     if (stored && token) setUser(JSON.parse(stored));
     setLoading(false);
   }, []);
 
   const login = async (email, password) => {
     const { data } = await loginUser(email, password);
-    localStorage.setItem('medisearch_token', data.token);
-    localStorage.setItem('medisearch_user', JSON.stringify(data.user));
+    localStorage.setItem('aushadhsetu_token', data.token);
+    localStorage.setItem('aushadhsetu_user', JSON.stringify(data.user));
     setUser(data.user);
     return data;
   };
@@ -27,8 +27,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem('medisearch_token');
-    localStorage.removeItem('medisearch_user');
+    localStorage.removeItem('aushadhsetu_token');
+    localStorage.removeItem('aushadhsetu_user');
     setUser(null);
   };
 
