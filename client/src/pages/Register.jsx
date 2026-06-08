@@ -53,7 +53,7 @@ export default function Register() {
         {error && (
           <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm mb-5">
             <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             {error}
           </div>
@@ -61,8 +61,8 @@ export default function Register() {
 
         <form onSubmit={handleSubmit} className="space-y-3.5">
           {[
-            { label: 'Full Name', name: 'name', type: 'text', ph: 'John Doe' },
-            { label: 'Email Address', name: 'email', type: 'email', ph: 'you@example.com' },
+            { label: 'Full Name', name: 'name', type: 'text', ph: 'Enter your full name' },
+            { label: 'Email Address', name: 'email', type: 'email', ph: 'Enter your email' },
             { label: 'Password', name: 'password', type: 'password', ph: '8+ characters' },
             { label: 'Confirm Password', name: 'confirm', type: 'password', ph: 'Repeat password' },
           ].map(f => (
@@ -76,8 +76,8 @@ export default function Register() {
             {loading ? (
               <span className="flex items-center gap-2">
                 <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
                 </svg>
                 Creating account...
               </span>
