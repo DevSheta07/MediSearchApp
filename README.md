@@ -20,7 +20,7 @@
 
 ## 🛠️ Technology Stack
 
-*   **Frontend**: React (React Router v6, Axios API Client)
+*   **Frontend**: React (Axios API Client)
 *   **Backend**: Node.js & Express.js
 *   **Database**: MongoDB (Mongoose ODM)
 *   **Email Gateway**: Resend (HTTP REST API)
