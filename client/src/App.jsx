@@ -7,6 +7,7 @@ import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import MedicineDetail from './pages/MedicineDetail';
+import DisclaimerModal from './components/DisclaimerModal';
 import { useLocation } from 'react-router-dom';
 
 const PrivateRoute = ({ children }) => {
@@ -17,19 +18,23 @@ const PrivateRoute = ({ children }) => {
 
 function AppRoutes() {
   const { user } = useAuth();
+  const location = useLocation();
+  const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
+
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <Navbar />
-      <div className="pt-20">
+      <DisclaimerModal />
+      <main className="flex-1 pt-16">
         <Routes>
           <Route path="/" element={user ? <Home /> : <Landing />} />
           <Route path="/medicine/:genericName" element={<PrivateRoute><MedicineDetail /></PrivateRoute>} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>
-      </div>
-      {!(location.pathname === '/login' || location.pathname === '/register') && <Footer />}
-    </>
+      </main>
+      {!isAuthPage && <Footer />}
+    </div>
   );
 }
 

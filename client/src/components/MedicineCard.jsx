@@ -6,83 +6,64 @@ export default function MedicineCard({ medicine, index }) {
 
   return (
     <div
-      className="bg-white rounded-soft shadow-card hover:shadow-card-hover border border-brand-100
-        overflow-hidden transition-all duration-300 hover:-translate-y-1 cursor-pointer animate-fade-up group"
-      style={{ animationDelay: `${index * 80}ms`, opacity: 0 }}
+      className="bg-white border border-gray-100 rounded-xl shadow-card hover:shadow-card-hover overflow-hidden cursor-pointer
+        transition-all duration-300 hover:-translate-y-1 animate-slide-up group"
+      style={{ animationDelay: `${index * 60}ms`, opacity: 0 }}
       onClick={() => navigate(`/medicine/${encodeURIComponent(medicine.genericName)}`)}
     >
-      {/* Image */}
-      <div className="relative h-44 overflow-hidden bg-brand-100">
+      {/* Thumbnail */}
+      <div className="relative h-40 overflow-hidden bg-gray-50">
         <img
           src={getMedicineImage(medicine.brandName)}
           alt={medicine.brandName}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           onError={e => { e.target.src = FALLBACK_IMAGE; }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/12 to-transparent" />
-        <span className="absolute top-3 right-3 bg-brand-600 text-white text-xs font-semibold
-          px-3 py-1 rounded-full shadow">
-          Generic Available
-        </span>
+        <span className="absolute top-3 right-3 badge-green !text-[10px]">Generic Available</span>
       </div>
 
-      {/* Content */}
-      <div className="p-5">
-        <h3 className="font-heading text-lg font-bold text-gray-800 mb-1 truncate">
+      {/* Body */}
+      <div className="p-4 space-y-3">
+        <h3 className="font-heading text-lg text-gray-900 group-hover:text-brand-600 transition-colors truncate">
           {medicine.brandName !== 'N/A' ? medicine.brandName : medicine.genericName}
         </h3>
 
-        <div className="flex items-center gap-2 mb-3">
-          <span className="text-xs bg-green-100 text-green-700 font-medium px-2.5 py-0.5 rounded-full">
-            Generic: {medicine.genericName !== 'N/A' ? medicine.genericName : '—'}
-          </span>
-        </div>
+        <span className="badge-gray !text-[10px]">
+          Generic: {medicine.genericName !== 'N/A' ? medicine.genericName : '—'}
+        </span>
 
-        {/* Manufacturer */}
-        {medicine.manufacturer && medicine.manufacturer !== 'N/A' && (
-          <div className="mb-3 pb-3 border-b border-gray-100">
-            <p className="text-xs text-gray-500 font-semibold mb-1">MANUFACTURER</p>
-            <p className="text-sm text-gray-700 font-medium">{medicine.manufacturer}</p>
-          </div>
-        )}
-
-        {/* Pricing Section */}
+        {/* Pricing */}
         {medicine.pricing && (
-          <div className="bg-brand-50 rounded-lg p-3 mb-3">
-            <div className="grid grid-cols-2 gap-2 mb-2">
+          <div className="bg-gray-50 rounded-lg p-3 space-y-2">
+            <div className="grid grid-cols-2 gap-3">
               <div>
-                <p className="text-xs text-gray-600 font-semibold mb-1">Branded Price</p>
-                <p className="text-sm font-bold text-gray-800">₹{medicine.pricing.brandedPrice}</p>
+                <p className="text-[10px] text-gray-400 font-semibold uppercase tracking-wide">Branded</p>
+                <p className="text-sm font-bold text-gray-700">₹{medicine.pricing.brandedPrice}</p>
               </div>
               <div>
-                <p className="text-xs text-gray-600 font-semibold mb-1">Generic Price</p>
-                <p className="text-sm font-bold text-brand-700">₹{medicine.pricing.genericPrice}</p>
+                <p className="text-[10px] text-brand-600 font-semibold uppercase tracking-wide">Generic</p>
+                <p className="text-sm font-bold text-brand-600">₹{medicine.pricing.genericPrice}</p>
               </div>
             </div>
             {medicine.pricing.savings > 0 && (
-              <div className="pt-2 border-t border-brand-100">
-                <p className="text-xs text-gray-700 font-semibold mb-1">You Save</p>
-                <p className="text-sm font-bold text-brand-700">
-                  ₹{medicine.pricing.savings} ({medicine.pricing.savingsPercentage}% off)
-                </p>
-              </div>
-            )}
-            {medicine.pricing.source && (
-              <div className="text-xs text-gray-400 text-center mt-2 pt-2 border-t border-brand-50">
-                Via {medicine.pricing.source}
+              <div className="pt-2 border-t border-gray-200 flex items-center justify-between">
+                <span className="text-[10px] text-gray-400 font-medium">Savings</span>
+                <span className="text-[10px] bg-brand-500 text-white font-bold px-2 py-0.5 rounded">
+                  SAVE {medicine.pricing.savingsPercentage}%
+                </span>
               </div>
             )}
           </div>
         )}
 
-        <div className="flex items-center justify-between pt-2 border-t border-green-50">
-          <span className="text-xs text-gray-400">
-            {medicine.dosageForm && medicine.dosageForm !== 'N/A' ? medicine.dosageForm : ''}
+        {/* Footer */}
+        <div className="flex items-center justify-between pt-2 border-t border-gray-100">
+          <span className="text-[11px] text-gray-400 font-medium uppercase tracking-wide">
+            {medicine.dosageForm && medicine.dosageForm !== 'N/A' ? medicine.dosageForm : 'MEDICINE'}
           </span>
-          <span className="text-green-600 text-sm font-medium flex items-center gap-1
-            group-hover:gap-2 transition-all">
+          <span className="text-brand-500 text-xs font-semibold flex items-center gap-1 group-hover:gap-1.5 transition-all">
             Details
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/>
             </svg>
           </span>

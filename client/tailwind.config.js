@@ -4,54 +4,47 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        green: {
-          50:  '#f0fdf4',
-          100: '#dcfce7',
-          200: '#bbf7d0',
-          300: '#86efac',
-          400: '#4ade80',
-          500: '#22c55e',
-          600: '#16a34a',
-          700: '#15803d',
-          800: '#166534',
-          900: '#14532d',
-        },
         brand: {
-          50:  '#f6fbf8',
-          100: '#eaf7ee',
-          200: '#cfeedd',
-          300: '#b3e4cc',
-          400: '#8fd8b0',
-          500: '#66c28a',
-          600: '#2e8b56',
-          700: '#1f5f3b',
-          800: '#123d28',
-          900: '#092617',
+          50:  '#f0faf4',
+          100: '#ddf3e6',
+          200: '#b5e4c9',
+          300: '#7dd0a5',
+          400: '#3fb87e',
+          500: '#1a9d5c',
+          600: '#0f7d49',
+          700: '#0d643c',
+          800: '#0b5032',
+          900: '#093e27',
         },
-        mint: {
-          50:  '#f2fdf6',
-          100: '#e0faec',
-          200: '#c0f4d8',
-        }
+        slate: {
+          25: '#fcfcfd',
+          50: '#f8f9fb',
+        },
       },
       fontFamily: {
-        heading: ['"Poppins"', 'sans-serif'],
-        body: ['"Poppins"', 'sans-serif'],
+        heading: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+        body: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
-        card: '0 2px 20px rgba(22,163,74,0.08)',
-        'card-hover': '0 8px 40px rgba(22,163,74,0.18)',
+        sm: '0 1px 2px rgba(0,0,0,0.05)',
+        card: '0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04)',
+        'card-hover': '0 10px 25px rgba(0,0,0,0.08)',
+        btn: '0 1px 3px rgba(15,125,73,0.3)',
       },
       animation: {
-        'fade-up': 'fadeUp 0.5s ease forwards',
-        'pulse-slow': 'pulse 3s infinite',
+        'slide-up': 'slideUp 0.5s ease forwards',
+        'fade-in': 'fadeIn 0.4s ease forwards',
       },
       keyframes: {
-        fadeUp: {
-          '0%': { opacity: 0, transform: 'translateY(20px)' },
-          '100%': { opacity: 1, transform: 'translateY(0)' },
-        }
-      }
+        slideUp: {
+          '0%': { opacity: '0', transform: 'translateY(16px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+      },
     },
   },
   plugins: [],

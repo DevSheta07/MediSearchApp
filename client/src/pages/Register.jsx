@@ -6,9 +6,9 @@ import logoPng from '../assets/logo.png';
 
 export default function Register() {
   const { register } = useAuth();
-  const navigate     = useNavigate();
-  const [form, setForm]       = useState({ name: '', email: '', password: '', confirm: '' });
-  const [error, setError]     = useState('');
+  const navigate = useNavigate();
+  const [form, setForm] = useState({ name: '', email: '', password: '', confirm: '' });
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
@@ -26,99 +26,69 @@ export default function Register() {
   };
 
   return (
-    <div className="h-screen bg-brand-50 flex overflow-hidden">
+    <div
+      className="min-h-[calc(100vh-4rem)] flex items-center justify-center px-4 py-12 bg-cover bg-center relative"
+      style={{ backgroundImage: "url('/images/pharmacy-store.jpg')" }}
+    >
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-brand-900/70" />
 
-      {/* Left – form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center">
-        <div className="w-full max-w-md animate-fade-up app-shell p-8 mx-6">
-          <div className="flex items-center gap-4 mb-8">
-            <picture>
-              <source srcSet={logoAvif} type="image/avif" />
-              <img
-                src={logoPng}
-                alt="MediSearch logo"
-                className="w-16 h-16 rounded-lg shadow-md object-cover ring-1 ring-brand-100"
-              />
-            </picture>
-            <span className="font-heading text-2xl font-bold text-brand-800 tracking-tight">
-              Medi<span className="text-brand-500">Search</span>
-            </span>
+      {/* Centered Card */}
+      <div className="w-full max-w-sm bg-white rounded-xl p-6 sm:p-8 shadow-xl relative z-10 animate-slide-up">
+
+        {/* Logo */}
+        <div className="flex items-center justify-center gap-2.5 mb-6">
+          <picture className="w-10 h-10 rounded-lg overflow-hidden border border-gray-100">
+            <source srcSet={logoAvif} type="image/avif" />
+            <img src={logoPng} alt="MediSearch" className="w-full h-full object-cover" />
+          </picture>
+          <span className="font-heading text-xl text-gray-900">
+            Medi<span className="text-brand-500">Search</span>
+          </span>
+        </div>
+
+        <h1 className="font-heading text-2xl text-gray-900 mb-1 text-center">Create account</h1>
+        <p className="text-sm text-gray-500 mb-6 text-center">Start finding generic medicines for free</p>
+
+        {error && (
+          <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm mb-5">
+            <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            {error}
           </div>
+        )}
 
-          <h1 className="font-heading text-3xl font-bold text-brand-800 mb-2">Create account</h1>
-          <p className="text-gray-600 mb-6">Start finding generic medicines for free</p>
-
-          {error && (
-            <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-100
-              rounded-soft text-red-600 text-sm mb-6">
-              <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-              {error}
+        <form onSubmit={handleSubmit} className="space-y-3.5">
+          {[
+            { label: 'Full Name', name: 'name', type: 'text', ph: 'John Doe' },
+            { label: 'Email Address', name: 'email', type: 'email', ph: 'you@example.com' },
+            { label: 'Password', name: 'password', type: 'password', ph: '8+ characters' },
+            { label: 'Confirm Password', name: 'confirm', type: 'password', ph: 'Repeat password' },
+          ].map(f => (
+            <div key={f.name}>
+              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">{f.label}</label>
+              <input type={f.type} name={f.name} value={form[f.name]} onChange={handleChange} required placeholder={f.ph} className="input-field !py-2.5" />
             </div>
-          )}
+          ))}
 
-          <form onSubmit={handleSubmit} className="space-y-5">
-            {[
-              { label: 'Full Name',        name: 'name',     type: 'text',     ph: 'John Doe' },
-              { label: 'Email',            name: 'email',    type: 'email',    ph: 'you@example.com' },
-              { label: 'Password',         name: 'password', type: 'password', ph: '8+ characters' },
-              { label: 'Confirm Password', name: 'confirm',  type: 'password', ph: 'Repeat password' },
-            ].map(f => (
-              <div key={f.name}>
-                <label className="block text-base font-medium text-gray-700 mb-1.5">{f.label}</label>
-                <input type={f.type} name={f.name} value={form[f.name]}
-                  onChange={handleChange} required placeholder={f.ph}
-                  className="w-full px-4 py-3 rounded-soft border-2 border-brand-50 bg-white
-                    text-gray-800 placeholder-gray-400 focus:outline-none focus:border-brand-400
-                    focus:ring-4 focus:ring-brand-100 transition-all text-base" />
-              </div>
-            ))}
+          <button type="submit" disabled={loading} className="btn-primary w-full !mt-5">
+            {loading ? (
+              <span className="flex items-center gap-2">
+                <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
+                </svg>
+                Creating account...
+              </span>
+            ) : 'Create Account'}
+          </button>
+        </form>
 
-            <button type="submit" disabled={loading}
-              className="w-full bg-brand-600 hover:bg-brand-700 disabled:bg-brand-300 text-white
-                font-semibold py-3.5 rounded-soft transition-colors shadow-sm flex items-center
-                justify-center gap-2 text-base">
-              {loading ? (<><svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
-              </svg>Creating account...</>) : 'Create Account'}
-            </button>
-          </form>
-
-          <p className="text-center text-sm text-gray-500 mt-8">
-            Already have an account?{' '}
-            <Link to="/login" className="text-brand-700 font-semibold hover:underline">Sign in</Link>
-          </p>
-        </div>
-      </div>
-
-      {/* Right – image */}
-      <div className="hidden lg:block w-1/2 relative">
-        <div
-          className="absolute inset-0 bg-cover bg-center rounded-soft"
-          style={{ backgroundImage: "url('/images/pharmacy-store.jpg')" }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-bl from-brand-800/80 to-brand-600/40 rounded-soft" />
-        <div className="absolute inset-0 flex flex-col justify-center p-12 text-white">
-          <div className="space-y-6 max-w-sm">
-            {[
-              { icon: '🔍', title: 'Smart Search',        desc: 'Search any medicine by brand or generic name instantly' },
-              { icon: '💊', title: 'Generic Alternatives', desc: 'Discover cost-effective alternatives with the same efficacy' },
-              { icon: '📍', title: 'Locate Stores',        desc: 'Find generic medicine stores on a live map near you' },
-            ].map(item => (
-              <div key={item.title} className="flex items-start gap-4">
-                <div className="w-11 h-11 bg-white/20 backdrop-blur rounded-xl flex items-center
-                  justify-center text-xl shrink-0">{item.icon}</div>
-                <div>
-                  <p className="font-semibold">{item.title}</p>
-                  <p className="text-brand-100 text-sm mt-0.5 leading-relaxed">{item.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <p className="text-center text-sm text-gray-500 mt-5">
+          Already have an account?{' '}
+          <Link to="/login" className="text-brand-500 font-semibold hover:underline">Sign in</Link>
+        </p>
       </div>
     </div>
   );

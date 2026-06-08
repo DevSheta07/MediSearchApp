@@ -1,11 +1,18 @@
 export default function Footer() {
   return (
-    <div className="mt-12 px-6 py-8">
-      <div className="max-w-6xl mx-auto rounded-soft bg-gradient-to-r from-brand-400 to-brand-600 text-white p-6 shadow-card">
-        <p className="text-sm text-center font-medium leading-relaxed">
-          Generic medicines contain the same active ingredient and are equally effective.
-        </p>
+    <footer className="border-t border-gray-100 bg-gray-50">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="flex items-start gap-3">
+          <span className="text-lg">🛡️</span>
+          <div>
+            <p className="text-sm font-semibold text-gray-800">Health & Savings Fact</p>
+            <p className="text-xs text-gray-500 leading-relaxed max-w-md">
+              Generic medicines contain the same active ingredients and efficacy as branded drugs — at up to 80% lower cost.
+            </p>
+          </div>
+        </div>
+        <p className="text-xs text-gray-400 font-medium">© {new Date().getFullYear()} MediSearch · Demo</p>
       </div>
-    </div>
+    </footer>
   );
 }
