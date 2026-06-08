@@ -1,0 +1,18 @@
+{
+  "name": "medisearch-root",
+  "version": "1.0.0",
+  "description": "MediSearch Root Workspace Configuration for easy deployment",
+  "main": "server/server.js",
+  "scripts": {
+    "install-client": "npm install --prefix client",
+    "install-server": "npm install --prefix server",
+    "install-all": "npm run install-server && npm run install-client",
+    "build-client": "npm run build --prefix client",
+    "build": "npm run build-client",
+    "start": "NODE_ENV=production node server/server.js",
+    "server": "npm start --prefix server",
+    "client": "npm start --prefix client"
+  },
+  "author": "",
+  "license": "ISC"
+}

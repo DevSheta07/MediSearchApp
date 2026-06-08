@@ -21,12 +21,22 @@ app.use(cors({
 }));
 app.use(express.json());
 
+const path = require('path');
+
 // ── Routes ─────────────────────────────────────
 app.use('/api/auth',     require('./routes/auth'));
 app.use('/api/medicine', require('./routes/medicine'));
 
-// ── Health check ───────────────────────────────
-app.get('/', (req, res) => res.json({ status: 'MediSearch API running ✅' }));
+// ── Serve Production Frontend ─────────────────
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/build')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+  });
+} else {
+  // ── Health check ───────────────────────────────
+  app.get('/', (req, res) => res.json({ status: 'MediSearch API running ✅' }));
+}
 
 // ── MongoDB connect + start server ─────────────
 const PORT     = process.env.PORT || 5000;
