@@ -2,7 +2,6 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
-const nodemailer = require('nodemailer');
 const { Resend } = require('resend');
 const User = require('../models/User');
 
@@ -146,40 +145,8 @@ router.post('/forgot-password', async (req, res) => {
       });
 
       res.json({ message: 'A password reset link has been successfully sent to your email.' });
-    } else if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
-      const transporter = nodemailer.createTransport({
-        host: process.env.EMAIL_HOST || 'smtp.gmail.com',
-        port: parseInt(process.env.EMAIL_PORT || '587'),
-        secure: process.env.EMAIL_SECURE === 'true', // true for 465, false for other ports
-        auth: {
-          user: process.env.EMAIL_USER,
-          pass: process.env.EMAIL_PASS,
-        },
-        connectionTimeout: 10000, // 10 seconds timeout limit
-        socketTimeout: 10000,
-      });
-
-      const mailOptions = {
-        from: `"AushadhSetu Care" <${process.env.EMAIL_USER}>`,
-        to: user.email,
-        subject: 'Password Reset Request — AushadhSetu',
-        html: `
-          <div style="font-family: Arial, sans-serif; max-width: 500px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 8px; padding: 24px; color: #1a202c;">
-            <h2 style="color: #1a9d5c; margin-top: 0;">AushadhSetu 🩺</h2>
-            <p>Hello <strong>${user.name}</strong>,</p>
-            <p>We received a request to reset your password for your AushadhSetu account.</p>
-            <p style="margin: 24px 0;">
-              <a href="${resetUrl}" style="background-color: #1a9d5c; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Reset Password</a>
-            </p>
-            <p style="font-size: 12px; color: #718096;">If you didn't request this password reset, please ignore this email. The link is valid for 1 hour.</p>
-          </div>
-        `,
-      };
-
-      await transporter.sendMail(mailOptions);
-      res.json({ message: 'A password reset link has been successfully sent to your email.' });
     } else {
-      // Fallback behavior when email service is not configured
+      // Fallback behavior when Resend is not configured (logs to console for local testing)
       console.log(`\n🔑 [AushadhSetu Recovery URL]: ${resetUrl}\n`);
       res.json({ message: 'Password reset link generated. Check server logs.' });
     }
