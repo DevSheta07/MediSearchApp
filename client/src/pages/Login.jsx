@@ -16,13 +16,16 @@ export default function Login() {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    setLoading(true); setError('');
+    setLoading(true);
+    setError('');
     try {
-      await login(form.email, form.password);
+      await login(form.email.trim(), form.password);
       navigate('/');
-    } catch {
-      setError('Invalid email or password. Please try again.');
-    } finally { setLoading(false); }
+    } catch (err) {
+      setError(err.response?.data?.message || 'Invalid email or password. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -42,7 +45,7 @@ export default function Login() {
             <source srcSet={logoAvif} type="image/avif" />
             <img src={logoPng} alt="AushadhSetu" className="w-full h-full object-cover" />
           </picture>
-          <span className="font-heading text-xl text-gray-900">
+          <span className="font-heading text-xl text-gray-900 font-bold">
             Aushadh<span className="text-brand-500">Setu</span>
           </span>
         </div>
@@ -51,7 +54,7 @@ export default function Login() {
         <p className="text-sm text-gray-500 mb-6 text-center">Sign in to search medicine prices</p>
 
         {error && (
-          <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm mb-5">
+          <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-xs font-medium mb-5">
             <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>

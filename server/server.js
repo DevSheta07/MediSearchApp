@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const cors     = require('cors');
 require('dotenv').config();
 
+const seedPharmacies = require('./seeders/pharmacySeeder');
+
 const app = express();
 const allowedOrigins = (process.env.CLIENT_ORIGIN || 'http://localhost:3000')
   .split(',')
@@ -14,13 +16,15 @@ app.use(cors({
   origin: true,
   credentials: true,
 }));
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
 
 const path = require('path');
 
 // ── Routes ─────────────────────────────────────
-app.use('/api/auth',     require('./routes/auth'));
-app.use('/api/medicine', require('./routes/medicine'));
+app.use('/api/auth',         require('./routes/auth'));
+app.use('/api/medicine',     require('./routes/medicine'));
+app.use('/api/pharmacy',     require('./routes/pharmacy'));
+app.use('/api/prescription', require('./routes/prescription'));
 
 // ── Serve Production Frontend ─────────────────
 if (process.env.NODE_ENV === 'production') {
@@ -39,13 +43,12 @@ const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/aushadhset
 
 mongoose
   .connect(MONGO_URI)
-  .then(() => {
+  .then(async () => {
     console.log('✅ MongoDB connected successfully');
+    await seedPharmacies();
     app.listen(PORT, () => console.log(`✅ Server running on http://localhost:${PORT}`));
   })
   .catch((err) => {
     console.error('❌ MongoDB connection FAILED:', err.message);
-    // console.error('👉 Make sure MongoDB is running: run "mongod" in a separate terminal');
-    // console.error('👉 Or use MongoDB Atlas and set MONGO_URI in .env');
     process.exit(1);
   });

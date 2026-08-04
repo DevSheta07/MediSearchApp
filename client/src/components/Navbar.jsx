@@ -29,24 +29,45 @@ export default function Navbar() {
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-5">
+          <Link
+            to="/"
+            className={`text-sm font-medium transition-colors ${
+              location.pathname === '/' ? 'text-brand-600' : 'text-gray-500 hover:text-gray-800'
+            }`}
+          >
+            Search
+          </Link>
+
+          <Link
+            to="/prescription-scanner"
+            className={`text-sm font-medium transition-colors ${
+              location.pathname === '/prescription-scanner' ? 'text-brand-600' : 'text-gray-500 hover:text-gray-800'
+            }`}
+          >
+            Prescription Scanner
+          </Link>
+
+          <Link
+            to="/kendra-locator"
+            className={`text-sm font-medium transition-colors ${
+              location.pathname === '/kendra-locator' ? 'text-brand-600' : 'text-gray-500 hover:text-gray-800'
+            }`}
+          >
+            Store Locator
+          </Link>
+
           {user ? (
-            <>
-              <Link to="/"
-                className={`text-sm font-medium ${location.pathname === '/' ? 'text-brand-600' : 'text-gray-500 hover:text-gray-800'} transition-colors`}>
-                Search
-              </Link>
-              <div className="flex items-center gap-3 ml-2">
-                <div className="flex items-center gap-2 bg-gray-50 border border-gray-100 rounded-full pl-1.5 pr-3.5 py-1">
-                  <div className="w-7 h-7 bg-brand-500 rounded-full flex items-center justify-center">
-                    <span className="text-white text-xs font-bold">{user.name?.charAt(0).toUpperCase()}</span>
-                  </div>
-                  <span className="text-sm text-gray-700 font-medium">{user.name}</span>
+            <div className="flex items-center gap-3 ml-2">
+              <div className="flex items-center gap-2 bg-gray-50 border border-gray-100 rounded-full pl-1.5 pr-3.5 py-1">
+                <div className="w-7 h-7 bg-brand-500 rounded-full flex items-center justify-center">
+                  <span className="text-white text-xs font-bold">{user.name?.charAt(0).toUpperCase()}</span>
                 </div>
-                <button onClick={handleLogout} className="text-sm text-gray-400 hover:text-red-500 font-medium transition-colors">
-                  Logout
-                </button>
+                <span className="text-sm text-gray-700 font-medium">{user.name}</span>
               </div>
-            </>
+              <button onClick={handleLogout} className="text-sm text-gray-400 hover:text-red-500 font-medium transition-colors">
+                Logout
+              </button>
+            </div>
           ) : (
             <div className="flex items-center gap-3">
               <Link to="/login" className="text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors">Sign In</Link>
@@ -69,9 +90,12 @@ export default function Navbar() {
       {/* Mobile dropdown */}
       {mobileOpen && (
         <div className="md:hidden border-t border-gray-100 bg-white px-4 py-4 space-y-2">
+          <Link to="/" onClick={() => setMobileOpen(false)} className="block text-sm text-gray-700 py-2">Search</Link>
+          <Link to="/prescription-scanner" onClick={() => setMobileOpen(false)} className="block text-sm text-gray-700 py-2">Prescription Scanner</Link>
+          <Link to="/kendra-locator" onClick={() => setMobileOpen(false)} className="block text-sm text-gray-700 py-2">Store Locator</Link>
+
           {user ? (
             <>
-              <Link to="/" onClick={() => setMobileOpen(false)} className="block text-sm text-gray-700 py-2">Search</Link>
               <div className="flex items-center gap-2 py-2">
                 <div className="w-7 h-7 bg-brand-500 rounded-full flex items-center justify-center">
                   <span className="text-white text-xs font-bold">{user.name?.charAt(0).toUpperCase()}</span>

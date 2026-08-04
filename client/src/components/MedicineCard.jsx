@@ -4,59 +4,76 @@ import { getMedicineImage, FALLBACK_IMAGE } from '../utils/helpers';
 export default function MedicineCard({ medicine, index }) {
   const navigate = useNavigate();
 
+  const handleKendraClick = (e) => {
+    e.stopPropagation();
+    const targetMed = medicine.genericName !== 'N/A' ? medicine.genericName : medicine.brandName;
+    navigate(`/kendra-locator?medicine=${encodeURIComponent(targetMed)}`);
+  };
+
   return (
     <div
       className="bg-white border border-gray-100 rounded-xl shadow-card hover:shadow-card-hover overflow-hidden cursor-pointer
-        transition-all duration-300 hover:-translate-y-1 animate-slide-up group"
+        transition-all duration-300 hover:-translate-y-1 animate-slide-up group flex flex-col justify-between"
       style={{ animationDelay: `${index * 60}ms`, opacity: 0 }}
       onClick={() => navigate(`/medicine/${encodeURIComponent(medicine.genericName)}`)}
     >
-      {/* Thumbnail */}
-      <div className="relative h-40 overflow-hidden bg-gray-50">
-        <img
-          src={getMedicineImage(medicine.brandName)}
-          alt={medicine.brandName}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          onError={e => { e.target.src = FALLBACK_IMAGE; }}
-        />
-        <span className="absolute top-3 right-3 badge-green !text-[10px]">Generic Available</span>
+      <div>
+        {/* Thumbnail */}
+        <div className="relative h-40 overflow-hidden bg-gray-50">
+          <img
+            src={getMedicineImage(medicine.brandName)}
+            alt={medicine.brandName}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            onError={e => { e.target.src = FALLBACK_IMAGE; }}
+          />
+          <span className="absolute top-3 right-3 badge-green !text-[10px]">Generic Available</span>
+        </div>
+
+        {/* Body */}
+        <div className="p-4 space-y-3">
+          <h3 className="font-heading text-lg text-gray-900 group-hover:text-brand-600 transition-colors truncate">
+            {medicine.brandName !== 'N/A' ? medicine.brandName : medicine.genericName}
+          </h3>
+
+          <span className="badge-gray !text-[10px]">
+            Generic: {medicine.genericName !== 'N/A' ? medicine.genericName : '—'}
+          </span>
+
+          {/* Pricing */}
+          {medicine.pricing && (
+            <div className="bg-gray-50 rounded-lg p-3 space-y-2">
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <p className="text-[10px] text-gray-400 font-semibold uppercase tracking-wide">Branded</p>
+                  <p className="text-sm font-bold text-gray-700">₹{medicine.pricing.brandedPrice}</p>
+                </div>
+                <div>
+                  <p className="text-[10px] text-brand-600 font-semibold uppercase tracking-wide">Generic</p>
+                  <p className="text-sm font-bold text-brand-600">₹{medicine.pricing.genericPrice}</p>
+                </div>
+              </div>
+              {medicine.pricing.savings > 0 && (
+                <div className="pt-2 border-t border-gray-200 flex items-center justify-between">
+                  <span className="text-[10px] text-gray-400 font-medium">Savings</span>
+                  <span className="text-[10px] bg-brand-500 text-white font-bold px-2 py-0.5 rounded">
+                    SAVE {medicine.pricing.savingsPercentage}%
+                  </span>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* Body */}
-      <div className="p-4 space-y-3">
-        <h3 className="font-heading text-lg text-gray-900 group-hover:text-brand-600 transition-colors truncate">
-          {medicine.brandName !== 'N/A' ? medicine.brandName : medicine.genericName}
-        </h3>
+      {/* Action Footer */}
+      <div className="p-4 pt-0 space-y-2">
+        <button
+          onClick={handleKendraClick}
+          className="w-full py-2 px-3 bg-brand-50 hover:bg-brand-100 text-brand-700 text-xs font-semibold rounded-lg border border-brand-200 transition-colors flex items-center justify-center gap-1"
+        >
+          Find Nearby Store
+        </button>
 
-        <span className="badge-gray !text-[10px]">
-          Generic: {medicine.genericName !== 'N/A' ? medicine.genericName : '—'}
-        </span>
-
-        {/* Pricing */}
-        {medicine.pricing && (
-          <div className="bg-gray-50 rounded-lg p-3 space-y-2">
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <p className="text-[10px] text-gray-400 font-semibold uppercase tracking-wide">Branded</p>
-                <p className="text-sm font-bold text-gray-700">₹{medicine.pricing.brandedPrice}</p>
-              </div>
-              <div>
-                <p className="text-[10px] text-brand-600 font-semibold uppercase tracking-wide">Generic</p>
-                <p className="text-sm font-bold text-brand-600">₹{medicine.pricing.genericPrice}</p>
-              </div>
-            </div>
-            {medicine.pricing.savings > 0 && (
-              <div className="pt-2 border-t border-gray-200 flex items-center justify-between">
-                <span className="text-[10px] text-gray-400 font-medium">Savings</span>
-                <span className="text-[10px] bg-brand-500 text-white font-bold px-2 py-0.5 rounded">
-                  SAVE {medicine.pricing.savingsPercentage}%
-                </span>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Footer */}
         <div className="flex items-center justify-between pt-2 border-t border-gray-100">
           <span className="text-[11px] text-gray-400 font-medium uppercase tracking-wide">
             {medicine.dosageForm && medicine.dosageForm !== 'N/A' ? medicine.dosageForm : 'MEDICINE'}

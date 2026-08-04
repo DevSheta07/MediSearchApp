@@ -13,6 +13,9 @@ server/build/
 **/.cache/
 client/node_modules/.cache/
 
+# Tesseract Trained Data
+*.traineddata
+
 # Environment files
 .env
 .env.*
